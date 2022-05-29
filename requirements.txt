@@ -9,4 +9,4 @@ streamlit
 statistics
 pybase64
 requires.io
-math
+python-math
