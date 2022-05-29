@@ -8,5 +8,5 @@ requires.io
 streamlit
 statistics
 pybase64
-io
+requires.io
 math
