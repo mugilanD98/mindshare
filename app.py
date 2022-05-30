@@ -9,7 +9,6 @@ from statistics import stdev
 import base64
 import io
 from io import StringIO, BytesIO
-import math
 import plotly.graph_objects as go
 
 st.title("Automation")
