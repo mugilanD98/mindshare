@@ -62,14 +62,9 @@ def main():
         difficult_range_input=st.text_input("Range for Difficult")
         bg_range_input=st.text_input("Range for Battle Ground")
         #time.sleep(100)
-        #input("You can't see the next text. (press enter)")
-        # input() waits for a user input
-        #print("Now you can!")        
+             
         if st.button('Run'):
-
-
             user_input={"file_name":data_file,"sheet_names":agree,"attributes_names": {"state":"State_Name" ,"year":Year_Input,"election_type":Election_Type_Input,"party":Party_Input,"constituency_no":Constituency_No_Input,"constituency_name":"Constituency_Name","Rank":Rank_Input,"votes":Votes_Input,"valid_votes":Valid_Votes_Input,"Vote share %":"VS%" ,"margin":"Margin"},"values": {"election_type":Election_Type_value_input.upper(),"initial_year1":int(recent_year1_input),"initial_year2":int(recent_year2_input),"initial_year3":int(recent_year3_input),"party":Party_Name_input.upper()},"weights": {"tolerance %":float(tolerance_weight_input),"winloss_AE_weight": {"recent_year":float(recent_year_weight_input),"mid_year":float(mid_year_weight_input),"initial_year":float(initial_year_weight_input)},"margin_AE_weight": {"recent_year":float(recent_year_weight_input),"mid_year":float(mid_year_weight_input),"initial_year":float(initial_year_weight_input)},"vote_share_AE_weight": {"recent_year":float(recent_year_weight_input),"mid_year":float(mid_year_weight_input),"initial_year":float(initial_year_weight_input)},"margin_change_final_score_weight": {"for_AE_score":float(AE_score_weight_input),"for_AC_score":float(AC_Score_weight_input)},"voteshare_change_final_score_weight": {"for_AE_score":float(AE_score_weight_input),"for_AC_score":float(AC_Score_weight_input)},"net_score_weight": {"for_winloss_AE_score":float(winloss_weight_input),"for_margin_final_score":float(margin_weight_input),"for_voteshare_final_score":(float(voteshare_weight_input)/100)*60,"for_voteshare_AC_score":(float(voteshare_weight_input)/100)*40}},"category_range": {"safe":float(safe_range_input),"Favorable":float(favorable_range_input),"Difficult":float(difficult_range_input),"Battleground":float(bg_range_input)}}
-            
             processed_data=pd.DataFrame(columns=['Constituency_No', 'Year', 'Election_Type', 'Constituency_Name','Party', 'Position', 'Votes', 'Valid_Votes', 'vote_share%', 'margin'])
             ae_sheets = user_input['sheet_names']
             for l in ae_sheets:
@@ -427,7 +422,9 @@ def main():
             fig_bar.write_html(buffer, include_plotlyjs='cdn')
             html_bytes = buffer.getvalue().encode()
 
-            st.download_button(label='Download Seat Classification Plot',data=html_bytes,file_name='stuff.html',mime='text/html')        
+            st.download_button(label='Download Seat Classification Plot',data=html_bytes,file_name='stuff.html',mime='text/html')  
+        else:
+            time.sleep(100)          
 
 
     
