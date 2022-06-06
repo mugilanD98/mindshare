@@ -459,6 +459,7 @@ def main():
         sen_Party_Input=st.sidebar.selectbox("Party",cols)
         sen_zone_Input=st.sidebar.selectbox("Zone",cols)
         sen_margin_Input=st.sidebar.selectbox("Margin %",cols)
+        slider_range = st.text_input("Select Scale Range")
 
         st.subheader("Give Values")
         sen_Party_Name_input=st.text_input("State Name")
@@ -558,9 +559,9 @@ def main():
                range_value=max(max_list)
             else:
                range_value=abs(min(min_list))    
-
+            range_value=range_value+3
             range_value=5*round(range_value/5)
-            margin=list(range(-range_value,range_value+1,5))
+            margin=np.arange(-range_value,range_value+1,float(slider_range)).tolist()
 
             # convert margin list to df:
 
