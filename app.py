@@ -468,192 +468,192 @@ def main():
         sen_recent_year1_input=st.text_input("Party")
         check=st.checkbox('Run')
         if check:
-            input={"file_name":data_file1,"sheet_name":agree1[0],"state":sen_Party_Name_input,"year":int(sen_recent_year2_input),"election_type":sen_Election_Type_value_input,"party":sen_recent_year1_input,"column_names":{"state":sen_state_Input,"year":sen_Year_Input,"election_type":sen_Election_Type_Input,"party":sen_Party_Input,"zone":sen_zone_Input,"margin":sen_margin_Input}}
-            #input={"file_name":"D:/New folder/RJ/new/sensitivity graph QC (1).xlsx","sheet_name":"Data","state":"Telangana","year":2018,"election_type":"AE","party":"INC","column_names":{"state":"State","year":"YEAR","election_type":"Election Type","party":"Party Name","zone":"Zone","margin":"Margin (%)"}}
+                input={"file_name":data_file1,"sheet_name":agree1[0],"state":sen_Party_Name_input,"year":int(sen_recent_year2_input),"election_type":sen_Election_Type_value_input,"party":sen_recent_year1_input,"column_names":{"state":sen_state_Input,"year":sen_Year_Input,"election_type":sen_Election_Type_Input,"party":sen_Party_Input,"zone":sen_zone_Input,"margin":sen_margin_Input}}
+                #input={"file_name":"D:/New folder/RJ/new/sensitivity graph QC (1).xlsx","sheet_name":"Data","state":"Telangana","year":2018,"election_type":"AE","party":"INC","column_names":{"state":"State","year":"YEAR","election_type":"Election Type","party":"Party Name","zone":"Zone","margin":"Margin (%)"}}
 
 
-            data=pd.read_excel(input['file_name'],sheet_name=input['sheet_name'])
+                data=pd.read_excel(input['file_name'],sheet_name=input['sheet_name'])
 
-            data=data[data[input['column_names']['state']]==input['state']]
-            data=data[data[input['column_names']['year']]==input['year']]
-            data=data[data[input['column_names']['election_type']]==input['election_type']]
-            data=data[data[input['column_names']['party']]==input['party']]
-            data=data[[input['column_names']['state'],input['column_names']['year'],input['column_names']['election_type'],input['column_names']['party'],input['column_names']['margin'],input['column_names']['zone']]]
-            data=data.rename(columns={input['column_names']['zone']:"Zone",input['column_names']['margin']:"Margin (%)"}) 
-
-
-            zone=data['Zone'].unique()
-            zone_data=[]
-            positive_data=[]
-            negative_data=[]
-            for i in zone:       
-                data_zone=data[data['Zone']==i]
-                data_zone1=data_zone['Margin (%)']
-                data_zone2=data_zone1.to_list()
-                data_zone2.sort()
-                data_zone2.insert(data_zone2.index(min([i for i in data_zone2 if i > 0])),0)
-                negative=data_zone2[:data_zone2.index(0)+1]
-                positive=data_zone2[data_zone2.index(0)+1:]
-                positive.insert(0,i)
-                negative.insert(0,i)
-                positive_data.append(positive)
-                negative_data.append(negative)             
-                
-            # positive and negative df:
-
-            positive_df=pd.DataFrame(positive_data)
-            negative_df=pd.DataFrame(negative_data)
-
-            # transposing df:
-
-            positive_df=positive_df.T
-            negative_df=negative_df.T
-
-            # convert first row to column headers.
-            new_header = positive_df.iloc[0] 
-            positive_df = positive_df[1:] 
-            positive_df.columns = new_header
-
-            new_headers = negative_df.iloc[0] 
-            negative_df = negative_df[1:] 
-            negative_df.columns = new_headers
-            negative_df=negative_df.fillna(-600)
-
-            # negative 1
-            n=negative_df.columns
-            negative_data1=[]
-            for i in n:      
-                negative_list=negative_df[i].sort_values().to_list()
-                negative_list.insert(0,i)
-                negative_data1.append(negative_list)            
-            
-            # negative1 transpose:
-            negative_df1=pd.DataFrame(negative_data1)
-            negative_df1=negative_df1.T
-
-            # convert first row to column headers.
-            new_headerss = negative_df1.iloc[0] 
-            negative_df1 = negative_df1[1:] 
-            negative_df1.columns = new_headerss
-
-            # compute rank column:
-            positive_df['rank']=list(range(1,len(positive_df)+1,1))
-            negative_df1['rank']=list(range(-len(negative_df1)+1,1,1))
+                data=data[data[input['column_names']['state']]==input['state']]
+                data=data[data[input['column_names']['year']]==input['year']]
+                data=data[data[input['column_names']['election_type']]==input['election_type']]
+                data=data[data[input['column_names']['party']]==input['party']]
+                data=data[[input['column_names']['state'],input['column_names']['year'],input['column_names']['election_type'],input['column_names']['party'],input['column_names']['margin'],input['column_names']['zone']]]
+                data=data.rename(columns={input['column_names']['zone']:"Zone",input['column_names']['margin']:"Margin (%)"}) 
 
 
-            zone_df=pd.concat([negative_df1, positive_df],ignore_index=True)
-            zone_df = zone_df.replace(-600,np.nan)
+                zone=data['Zone'].unique()
+                zone_data=[]
+                positive_data=[]
+                negative_data=[]
+                for i in zone:       
+                    data_zone=data[data['Zone']==i]
+                    data_zone1=data_zone['Margin (%)']
+                    data_zone2=data_zone1.to_list()
+                    data_zone2.sort()
+                    data_zone2.insert(data_zone2.index(min([i for i in data_zone2 if i > 0])),0)
+                    negative=data_zone2[:data_zone2.index(0)+1]
+                    positive=data_zone2[data_zone2.index(0)+1:]
+                    positive.insert(0,i)
+                    negative.insert(0,i)
+                    positive_data.append(positive)
+                    negative_data.append(negative)             
+
+                # positive and negative df:
+
+                positive_df=pd.DataFrame(positive_data)
+                negative_df=pd.DataFrame(negative_data)
+
+                # transposing df:
+
+                positive_df=positive_df.T
+                negative_df=negative_df.T
+
+                # convert first row to column headers.
+                new_header = positive_df.iloc[0] 
+                positive_df = positive_df[1:] 
+                positive_df.columns = new_header
+
+                new_headers = negative_df.iloc[0] 
+                negative_df = negative_df[1:] 
+                negative_df.columns = new_headers
+                negative_df=negative_df.fillna(-600)
+
+                # negative 1
+                n=negative_df.columns
+                negative_data1=[]
+                for i in n:      
+                    negative_list=negative_df[i].sort_values().to_list()
+                    negative_list.insert(0,i)
+                    negative_data1.append(negative_list)            
+
+                # negative1 transpose:
+                negative_df1=pd.DataFrame(negative_data1)
+                negative_df1=negative_df1.T
+
+                # convert first row to column headers.
+                new_headerss = negative_df1.iloc[0] 
+                negative_df1 = negative_df1[1:] 
+                negative_df1.columns = new_headerss
+
+                # compute rank column:
+                positive_df['rank']=list(range(1,len(positive_df)+1,1))
+                negative_df1['rank']=list(range(-len(negative_df1)+1,1,1))
+
+
+                zone_df=pd.concat([negative_df1, positive_df],ignore_index=True)
+                zone_df = zone_df.replace(-600,np.nan)
 
 
 
-            # max list and min list:
+                # max list and min list:
 
-            max_list=[]
-            min_list=[]
-            for i in zone_df.columns:   
-                max_list.append(math.ceil(zone_df[i].max()))
-                min_list.append(math.floor(zone_df[i].min()))            
-            # min range and max range :
-
-
-            if max(max_list)>abs(min(min_list)):
-               range_value=max(max_list)
-            else:
-               range_value=abs(min(min_list))    
-            range_value=range_value+3
-            range_value=5*round(range_value/5)
-            margin=np.arange(-range_value,range_value+1,float(slider_range)).tolist()
-
-            # convert margin list to df:
-
-            margin_df=pd.DataFrame(margin,columns=['margin'])
+                max_list=[]
+                min_list=[]
+                for i in zone_df.columns:   
+                    max_list.append(math.ceil(zone_df[i].max()))
+                    min_list.append(math.floor(zone_df[i].min()))            
+                # min range and max range :
 
 
-            # Zone df:
+                if max(max_list)>abs(min(min_list)):
+                   range_value=max(max_list)
+                else:
+                   range_value=abs(min(min_list))    
+                range_value=range_value+3
+                range_value=5*round(range_value/5)
+                margin=np.arange(-range_value,range_value+1,float(slider_range)).tolist()
+
+                # convert margin list to df:
+
+                margin_df=pd.DataFrame(margin,columns=['margin'])
 
 
-            distinct_zone=pd.DataFrame(data['Zone'].unique(),columns=['zone'])
-
-            # creating key column for cross join:
-
-            distinct_zone['key']=1
-            margin_df['key']=1
-
-            # perform cross join:
-            margin_zone_df=pd.merge(margin_df, distinct_zone, on ='key').drop("key", 1)
-
-            # finalize limits, lower and upper values:
-
-            for i in range(len(margin_zone_df)):   
-                z=margin_zone_df.loc[i,'zone']
-                m=margin_zone_df.loc[i,'margin']
-                z_df=zone_df[z]
-                z_df=z_df.dropna()
-                min_margin=min(z_df)     # minimum margin
-                max_margin=max(z_df)     # maximum margin
-                max_margin=math.ceil(max_margin/5)*5   # round the maximum margin to nearest 5.
-                min_margin=math.floor(min_margin/5)*5  # round the minimum margin to nearest 5. 
-                if m>=min_margin and m<=max_margin:  
-                    tem_df=zone_df[z]    
-                    if m<0:
-                       tem_df=tem_df[tem_df>=m]
-                       low_margin=min(tem_df)
-                       rank_df=zone_df[[z,'rank']]
-                       rank_df=rank_df[rank_df[z]==low_margin]
-                       rank_df.reset_index(inplace = True)
-                       rnk=rank_df['rank'][0]
-                    elif m>0:
-                       tem_df=tem_df[tem_df<=m]
-                       high_margin=max(tem_df)
-                       rank_df=zone_df[[z,'rank']]
-                       rank_df=rank_df[rank_df[z]==high_margin]
-                       rank_df.reset_index(inplace = True)
-                       rnk=rank_df['rank'][0]
-                    elif m==0:
-                       rnk=0    
-                    margin_zone_df.loc[i,'rank']=rnk   # computing rank or seats.
-            # pivote to get final table:
-
-            final_graph_data=margin_zone_df.pivot(index='margin', columns='zone', values='rank')
-            # rest index:
-            final_graph_data.reset_index(inplace = True)
-
-            # Plot in plotly dynamic:
-            st.subheader("Sensitivity Plot")
-            import plotly.express as px
-
-            df = px.data.gapminder().query("continent=='Oceania'")
-            fig = px.line(final_graph_data, x="margin", y=final_graph_data.columns[1:])
-            #fig = px.line(final_graph_data, x="margin", y='Bombay Karnataka')
-            fig.add_hline(y=0,line_width=2, line_color="black")
-            #fig.add_vrect(x1=0)
-            fig.add_vline(x=0, line_width=2, line_color="black")     
-
-            fig.update_layout(
-                title="Sensitivity graph for "+data[data.columns[0]][0],
-                xaxis_title="Margin",
-                yaxis_title="Rank or Seats",
-                legend_title="Zones")
-            st.plotly_chart(fig)
-            #fig.write_image("/content/sample_data/sensitivity_plot.png")
-            #fig.write_html(data[data.columns[0]][0]+" Sensitivity_plot.html")     
-            buffer = io.StringIO()
-            fig.write_html(buffer, include_plotlyjs='cdn')
-            html_bytes = buffer.getvalue().encode()
-
-            st.download_button(label='Download Sensitivity Plot',data=html_bytes,file_name='stuff.html',mime='text/html')        
-                                                                        
-            st.markdown('#')
-            st.subheader("Sensitivity Plot Data")
-            st.write(final_graph_data)
-            @st.cache
-            def convert_df(df):
-                return df.to_csv().encode('utf-8')
+                # Zone df:
 
 
-            sen_csv = convert_df(final_graph_data)
+                distinct_zone=pd.DataFrame(data['Zone'].unique(),columns=['zone'])
 
-            st.download_button("Download",sen_csv,"file.csv","text/csv",key='download-csv')
+                # creating key column for cross join:
+
+                distinct_zone['key']=1
+                margin_df['key']=1
+
+                # perform cross join:
+                margin_zone_df=pd.merge(margin_df, distinct_zone, on ='key').drop("key", 1)
+
+                # finalize limits, lower and upper values:
+
+                for i in range(len(margin_zone_df)):   
+                    z=margin_zone_df.loc[i,'zone']
+                    m=margin_zone_df.loc[i,'margin']
+                    z_df=zone_df[z]
+                    z_df=z_df.dropna()
+                    min_margin=min(z_df)     # minimum margin
+                    max_margin=max(z_df)     # maximum margin
+                    max_margin=math.ceil(max_margin/5)*5   # round the maximum margin to nearest 5.
+                    min_margin=math.floor(min_margin/5)*5  # round the minimum margin to nearest 5. 
+                    if m>=min_margin and m<=max_margin:  
+                        tem_df=zone_df[z]    
+                        if m<0:
+                           tem_df=tem_df[tem_df>=m]
+                           low_margin=min(tem_df)
+                           rank_df=zone_df[[z,'rank']]
+                           rank_df=rank_df[rank_df[z]==low_margin]
+                           rank_df.reset_index(inplace = True)
+                           rnk=rank_df['rank'][0]
+                        elif m>0:
+                           tem_df=tem_df[tem_df<=m]
+                           high_margin=max(tem_df)
+                           rank_df=zone_df[[z,'rank']]
+                           rank_df=rank_df[rank_df[z]==high_margin]
+                           rank_df.reset_index(inplace = True)
+                           rnk=rank_df['rank'][0]
+                        elif m==0:
+                           rnk=0    
+                        margin_zone_df.loc[i,'rank']=rnk   # computing rank or seats.
+                # pivote to get final table:
+
+                final_graph_data=margin_zone_df.pivot(index='margin', columns='zone', values='rank')
+                # rest index:
+                final_graph_data.reset_index(inplace = True)
+
+                # Plot in plotly dynamic:
+                st.subheader("Sensitivity Plot")
+                import plotly.express as px
+
+                df = px.data.gapminder().query("continent=='Oceania'")
+                fig = px.line(final_graph_data, x="margin", y=final_graph_data.columns[1:])
+                #fig = px.line(final_graph_data, x="margin", y='Bombay Karnataka')
+                fig.add_hline(y=0,line_width=2, line_color="black")
+                #fig.add_vrect(x1=0)
+                fig.add_vline(x=0, line_width=2, line_color="black")     
+
+                fig.update_layout(
+                    title="Sensitivity graph for "+data[data.columns[0]][0],
+                    xaxis_title="Margin",
+                    yaxis_title="Rank or Seats",
+                    legend_title="Zones")
+                st.plotly_chart(fig)
+                #fig.write_image("/content/sample_data/sensitivity_plot.png")
+                #fig.write_html(data[data.columns[0]][0]+" Sensitivity_plot.html")     
+                buffer = io.StringIO()
+                fig.write_html(buffer, include_plotlyjs='cdn')
+                html_bytes = buffer.getvalue().encode()
+
+                st.download_button(label='Download Sensitivity Plot',data=html_bytes,file_name='stuff.html',mime='text/html')        
+
+                st.markdown('#')
+                st.subheader("Sensitivity Plot Data")
+                st.write(final_graph_data)
+                @st.cache
+                def convert_df(df):
+                    return df.to_csv().encode('utf-8')
+
+
+                sen_csv = convert_df(final_graph_data)
+
+                st.download_button("Download",sen_csv,"file.csv","text/csv",key='download-csv')
 
 
         
