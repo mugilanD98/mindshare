@@ -466,6 +466,7 @@ def main():
         sen_recent_year2_input=st.text_input("Year")
         sen_Election_Type_value_input=st.text_input("Election Type")
         sen_recent_year1_input=st.text_input("Party")
+        time.sleep(150)
         check=st.checkbox('Run')
         if check:
                 input={"file_name":data_file1,"sheet_name":agree1[0],"state":sen_Party_Name_input,"year":int(sen_recent_year2_input),"election_type":sen_Election_Type_value_input,"party":sen_recent_year1_input,"column_names":{"state":sen_state_Input,"year":sen_Year_Input,"election_type":sen_Election_Type_Input,"party":sen_Party_Input,"zone":sen_zone_Input,"margin":sen_margin_Input}}
