@@ -33,7 +33,7 @@ def main():
         Constituency_No_Input=st.sidebar.selectbox("Constituency_No",col)
         Year_Input=st.sidebar.selectbox("Year",col)
         Election_Type_Input=st.sidebar.selectbox("Election Type",col)
-        Party_Input=st.sidebar.selectbox("Party",col)
+        Party_Input=st.sidebar.selectbox("Party",col) 
         Votes_Input=st.sidebar.selectbox("Votes",col)
         Valid_Votes_Input=st.sidebar.selectbox("Valid Votes",col)
         Rank_Input=st.sidebar.selectbox("Rank",col)
