@@ -655,7 +655,8 @@ def main():
             sen_csv = convert_df(final_graph_data)
 
             st.download_button("Download",sen_csv,"file.csv","text/csv",key='download-csv')
-
+        else:
+            time.sleep(150)
 
         
 
