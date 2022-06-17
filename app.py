@@ -65,7 +65,7 @@ def main():
         #input("You can't see the next text. (press enter)")
         # input() waits for a user input
         #print("Now you can!")        
-        if st.button('Run'):
+        if st.checkbox('Run'):
 
 
             user_input={"file_name":data_file,"sheet_names":agree,"attributes_names": {"state":"State_Name" ,"year":Year_Input,"election_type":Election_Type_Input,"party":Party_Input,"constituency_no":Constituency_No_Input,"constituency_name":"Constituency_Name","Rank":Rank_Input,"votes":Votes_Input,"valid_votes":Valid_Votes_Input,"Vote share %":"VS%" ,"margin":"Margin"},"values": {"election_type":Election_Type_value_input.upper(),"initial_year1":int(recent_year1_input),"initial_year2":int(recent_year2_input),"initial_year3":int(recent_year3_input),"party":Party_Name_input.upper()},"weights": {"tolerance %":float(tolerance_weight_input),"winloss_AE_weight": {"recent_year":float(recent_year_weight_input),"mid_year":float(mid_year_weight_input),"initial_year":float(initial_year_weight_input)},"margin_AE_weight": {"recent_year":float(recent_year_weight_input),"mid_year":float(mid_year_weight_input),"initial_year":float(initial_year_weight_input)},"vote_share_AE_weight": {"recent_year":float(recent_year_weight_input),"mid_year":float(mid_year_weight_input),"initial_year":float(initial_year_weight_input)},"margin_change_final_score_weight": {"for_AE_score":float(AE_score_weight_input),"for_AC_score":float(AC_Score_weight_input)},"voteshare_change_final_score_weight": {"for_AE_score":float(AE_score_weight_input),"for_AC_score":float(AC_Score_weight_input)},"net_score_weight": {"for_winloss_AE_score":float(winloss_weight_input),"for_margin_final_score":float(margin_weight_input),"for_voteshare_final_score":(float(voteshare_weight_input)/100)*60,"for_voteshare_AC_score":(float(voteshare_weight_input)/100)*40}},"category_range": {"safe":float(safe_range_input),"Favorable":float(favorable_range_input),"Difficult":float(difficult_range_input),"Battleground":float(bg_range_input)}}
@@ -468,7 +468,7 @@ def main():
         sen_recent_year2_input=st.text_input("Year")
         sen_Election_Type_value_input=st.text_input("Election Type")
         sen_recent_year1_input=st.text_input("Party")
-        if st.button('Run'):
+        if st.checkbox('Run'):
             input={"file_name":data_file1,"sheet_name":agree1[0],"state":sen_Party_Name_input,"year":int(sen_recent_year2_input),"election_type":sen_Election_Type_value_input,"party":sen_recent_year1_input,"column_names":{"state":sen_state_Input,"year":sen_Year_Input,"election_type":sen_Election_Type_Input,"party":sen_Party_Input,"zone":sen_zone_Input,"margin":sen_margin_Input}}
             #input={"file_name":"D:/New folder/RJ/new/sensitivity graph QC (1).xlsx","sheet_name":"Data","state":"Telangana","year":2018,"election_type":"AE","party":"INC","column_names":{"state":"State","year":"YEAR","election_type":"Election Type","party":"Party Name","zone":"Zone","margin":"Margin (%)"}}
 
